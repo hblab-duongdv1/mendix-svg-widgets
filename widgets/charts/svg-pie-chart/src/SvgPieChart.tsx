@@ -1,32 +1,29 @@
-import { ReactElement, useLayoutEffect, useRef } from "react";
-
-import { SvgChartSurface } from "@mendix-svg/svg-engine";
+import { ReactElement, useRef } from "react";
 
 import { SvgPieChartContainerProps } from "../typings/SvgPieChartProps";
-import { toSurfaceOptions } from "./adapters/toSurfaceOptions";
+import { useScaffoldSurfaceLayout } from "./useScaffoldSurfaceLayout";
 import "./ui/SvgPieChart.css";
 
 export function SvgPieChart(props: SvgPieChartContainerProps): ReactElement {
-    const { chartTitle, chartWidth, chartHeight, class: className, style, tabIndex } = props;
+    const { chartTitle, widthUnit, widthValue, heightUnit, heightValue, class: className, style, tabIndex } = props;
     const rootRef = useRef<HTMLDivElement>(null);
 
-    useLayoutEffect(() => {
-        const el = rootRef.current;
-        if (!el) {
-            return undefined;
-        }
-        const surface = new SvgChartSurface(toSurfaceOptions("pie", { chartTitle, chartWidth, chartHeight }));
-        surface.mount(el);
-        return () => {
-            surface.destroy();
-        };
-    }, [chartTitle, chartWidth, chartHeight]);
+    useScaffoldSurfaceLayout(rootRef, "pie", {
+        chartTitle,
+        widthUnit,
+        widthValue,
+        heightUnit,
+        heightValue
+    });
 
     return (
         <div
             ref={rootRef}
             className={`charts-scaffold-widget charts-scaffold-pie ${className}`}
-            style={style}
+            style={{
+                boxSizing: "border-box",
+                ...style
+            }}
             tabIndex={tabIndex}
         />
     );

@@ -7,8 +7,10 @@ const baseProps: SvgBarChartContainerProps = {
     name: "SvgBarChart1",
     class: "",
     chartTitle: "Bar volume",
-    chartWidth: 300,
-    chartHeight: 180
+    widthUnit: "pixels",
+    widthValue: 300,
+    heightUnit: "pixels",
+    heightValue: 180
 };
 
 describe("SvgBarChart", () => {

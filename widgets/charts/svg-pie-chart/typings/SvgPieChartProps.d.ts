@@ -4,6 +4,12 @@
  * @author Mendix Widgets Framework Team
  */
 import { CSSProperties } from "react";
+import { ListValue, ListAttributeValue } from "mendix";
+import { Big } from "big.js";
+
+export type WidthUnitEnum = "percentOfParent" | "pixels";
+
+export type HeightUnitEnum = "percentOfWidth" | "pixels" | "percentOfParent";
 
 export interface SvgPieChartContainerProps {
     name: string;
@@ -11,8 +17,13 @@ export interface SvgPieChartContainerProps {
     style?: CSSProperties;
     tabIndex?: number;
     chartTitle: string;
-    chartWidth: number;
-    chartHeight: number;
+    chartData?: ListValue;
+    seriesCategoryAttribute?: ListAttributeValue<string | Big>;
+    seriesValueAttribute?: ListAttributeValue<Big>;
+    widthUnit: WidthUnitEnum;
+    widthValue: number;
+    heightUnit: HeightUnitEnum;
+    heightValue: number;
 }
 
 export interface SvgPieChartPreviewProps {
@@ -27,6 +38,11 @@ export interface SvgPieChartPreviewProps {
     renderMode: "design" | "xray" | "structure";
     translate: (text: string) => string;
     chartTitle: string;
-    chartWidth: number | null;
-    chartHeight: number | null;
+    chartData: {} | { caption: string } | { type: string } | null;
+    seriesCategoryAttribute: string;
+    seriesValueAttribute: string;
+    widthUnit: WidthUnitEnum;
+    widthValue: number | null;
+    heightUnit: HeightUnitEnum;
+    heightValue: number | null;
 }

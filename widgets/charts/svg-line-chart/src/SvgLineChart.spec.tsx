@@ -7,8 +7,10 @@ const baseProps: SvgLineChartContainerProps = {
     name: "SvgLineChart1",
     class: "",
     chartTitle: "Line sales",
-    chartWidth: 280,
-    chartHeight: 160
+    widthUnit: "pixels",
+    widthValue: 280,
+    heightUnit: "pixels",
+    heightValue: 160
 };
 
 describe("SvgLineChart", () => {

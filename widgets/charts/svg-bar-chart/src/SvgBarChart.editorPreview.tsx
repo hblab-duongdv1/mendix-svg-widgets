@@ -1,26 +1,42 @@
-import { ReactElement } from "react";
+import { ReactElement, useRef } from "react";
 
 import { parseInlineStyle } from "@mendix/pluggable-widgets-tools";
 
 import { SvgBarChartPreviewProps } from "../typings/SvgBarChartProps";
+import { useScaffoldSurfaceLayout } from "./useScaffoldSurfaceLayout";
+import "./ui/SvgBarChart.css";
 
-export function preview(props: SvgBarChartPreviewProps): ReactElement {
-    const style = parseInlineStyle(props.style);
+function SvgBarDesignSurface(props: SvgBarChartPreviewProps): ReactElement {
+    const rootRef = useRef<HTMLDivElement>(null);
+    const parsed = parseInlineStyle(props.style);
+
+    const widthUnit = props.widthUnit ?? "pixels";
+    const widthValue = props.widthValue ?? 400;
+    const heightUnit = props.heightUnit ?? "pixels";
+    const heightValue = props.heightValue ?? 240;
+
+    useScaffoldSurfaceLayout(rootRef, "bar", {
+        chartTitle: props.chartTitle ?? "",
+        widthUnit,
+        widthValue,
+        heightUnit,
+        heightValue
+    });
+
     return (
         <div
-            className={props.className}
+            ref={rootRef}
+            className={`charts-scaffold-widget charts-scaffold-bar ${props.className}`.trim()}
             style={{
-                ...style,
-                border: "1px dashed #2bb673",
-                padding: 8,
-                minHeight: Math.min(props.chartHeight ?? 120, 200),
-                maxWidth: props.chartWidth ?? 400
+                boxSizing: "border-box",
+                ...parsed
             }}
-        >
-            <strong>SVG Bar Chart</strong>
-            <div>{props.chartTitle || "(no title)"}</div>
-        </div>
+        />
     );
+}
+
+export function preview(props: SvgBarChartPreviewProps): ReactElement {
+    return <SvgBarDesignSurface {...props} />;
 }
 
 export function getPreviewCss(): string {

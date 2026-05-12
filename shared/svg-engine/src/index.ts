@@ -1,6 +1,37 @@
 import { SVG, Svg } from "@svgdotjs/svg.js";
 
+import { CHART_LAYOUT_DEFAULTS } from "./constants";
+
+export type { ChartDimensionProps, MinimalListValue } from "./chartLayoutBox";
+export { CHART_LAYOUT_DEFAULTS } from "./constants";
+export { computeChartPixelBox, hasChartListData } from "./chartLayoutBox";
+
 export type ChartKind = "line" | "bar" | "pie";
+
+function parsePositiveSize(value: unknown): number | undefined {
+    if (typeof value === "number" && Number.isFinite(value) && value > 0) {
+        return value;
+    }
+    if (typeof value === "string") {
+        const trimmed = value.trim();
+        if (trimmed === "") {
+            return undefined;
+        }
+        const n = Number(trimmed);
+        if (Number.isFinite(n) && n > 0) {
+            return n;
+        }
+    }
+    return undefined;
+}
+
+/** Resolves chart viewport size; tolerates missing, string, or invalid values from the Mendix client. */
+export function resolveChartDimensions(width: unknown, height: unknown): { width: number; height: number } {
+    return {
+        width: parsePositiveSize(width) ?? CHART_LAYOUT_DEFAULTS.width,
+        height: parsePositiveSize(height) ?? CHART_LAYOUT_DEFAULTS.height
+    };
+}
 
 export interface SvgChartSurfaceOptions {
     width: number;

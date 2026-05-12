@@ -20,3 +20,4 @@ mendixProject
 **/screenshot-results
 **/tests/testProject
 **/artifacts
+.build-widget-versions.json

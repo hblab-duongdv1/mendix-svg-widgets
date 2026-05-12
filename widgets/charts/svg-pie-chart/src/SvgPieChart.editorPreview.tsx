@@ -1,26 +1,42 @@
-import { ReactElement } from "react";
+import { ReactElement, useRef } from "react";
 
 import { parseInlineStyle } from "@mendix/pluggable-widgets-tools";
 
 import { SvgPieChartPreviewProps } from "../typings/SvgPieChartProps";
+import { useScaffoldSurfaceLayout } from "./useScaffoldSurfaceLayout";
+import "./ui/SvgPieChart.css";
 
-export function preview(props: SvgPieChartPreviewProps): ReactElement {
-    const style = parseInlineStyle(props.style);
+function SvgPieDesignSurface(props: SvgPieChartPreviewProps): ReactElement {
+    const rootRef = useRef<HTMLDivElement>(null);
+    const parsed = parseInlineStyle(props.style);
+
+    const widthUnit = props.widthUnit ?? "pixels";
+    const widthValue = props.widthValue ?? 400;
+    const heightUnit = props.heightUnit ?? "pixels";
+    const heightValue = props.heightValue ?? 240;
+
+    useScaffoldSurfaceLayout(rootRef, "pie", {
+        chartTitle: props.chartTitle ?? "",
+        widthUnit,
+        widthValue,
+        heightUnit,
+        heightValue
+    });
+
     return (
         <div
-            className={props.className}
+            ref={rootRef}
+            className={`charts-scaffold-widget charts-scaffold-pie ${props.className}`.trim()}
             style={{
-                ...style,
-                border: "1px dashed #ff6b35",
-                padding: 8,
-                minHeight: Math.min(props.chartHeight ?? 120, 200),
-                maxWidth: props.chartWidth ?? 400
+                boxSizing: "border-box",
+                ...parsed
             }}
-        >
-            <strong>SVG Pie Chart</strong>
-            <div>{props.chartTitle || "(no title)"}</div>
-        </div>
+        />
     );
+}
+
+export function preview(props: SvgPieChartPreviewProps): ReactElement {
+    return <SvgPieDesignSurface {...props} />;
 }
 
 export function getPreviewCss(): string {

@@ -1,26 +1,42 @@
-import { ReactElement } from "react";
+import { ReactElement, useRef } from "react";
 
 import { parseInlineStyle } from "@mendix/pluggable-widgets-tools";
 
 import { SvgLineChartPreviewProps } from "../typings/SvgLineChartProps";
+import { useScaffoldSurfaceLayout } from "./useScaffoldSurfaceLayout";
+import "./ui/SvgLineChart.css";
 
-export function preview(props: SvgLineChartPreviewProps): ReactElement {
-    const style = parseInlineStyle(props.style);
+function SvgLineDesignSurface(props: SvgLineChartPreviewProps): ReactElement {
+    const rootRef = useRef<HTMLDivElement>(null);
+    const parsed = parseInlineStyle(props.style);
+
+    const widthUnit = props.widthUnit ?? "pixels";
+    const widthValue = props.widthValue ?? 400;
+    const heightUnit = props.heightUnit ?? "pixels";
+    const heightValue = props.heightValue ?? 240;
+
+    useScaffoldSurfaceLayout(rootRef, "line", {
+        chartTitle: props.chartTitle ?? "",
+        widthUnit,
+        widthValue,
+        heightUnit,
+        heightValue
+    });
+
     return (
         <div
-            className={props.className}
+            ref={rootRef}
+            className={`charts-scaffold-widget charts-scaffold-line ${props.className}`.trim()}
             style={{
-                ...style,
-                border: "1px dashed #246bff",
-                padding: 8,
-                minHeight: Math.min(props.chartHeight ?? 120, 200),
-                maxWidth: props.chartWidth ?? 400
+                boxSizing: "border-box",
+                ...parsed
             }}
-        >
-            <strong>SVG Line Chart</strong>
-            <div>{props.chartTitle || "(no title)"}</div>
-        </div>
+        />
     );
+}
+
+export function preview(props: SvgLineChartPreviewProps): ReactElement {
+    return <SvgLineDesignSurface {...props} />;
 }
 
 export function getPreviewCss(): string {

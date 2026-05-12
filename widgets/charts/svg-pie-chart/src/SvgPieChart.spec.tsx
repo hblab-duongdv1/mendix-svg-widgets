@@ -7,8 +7,10 @@ const baseProps: SvgPieChartContainerProps = {
     name: "SvgPieChart1",
     class: "",
     chartTitle: "Pie share",
-    chartWidth: 260,
-    chartHeight: 200
+    widthUnit: "pixels",
+    widthValue: 260,
+    heightUnit: "pixels",
+    heightValue: 200
 };
 
 describe("SvgPieChart", () => {
