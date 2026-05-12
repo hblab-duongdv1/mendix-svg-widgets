@@ -12,7 +12,6 @@ mxproject
 coverage
 .cursor
 
-
 **/results
 mendixProject
 **/e2e/diffs
@@ -20,4 +19,3 @@ mendixProject
 **/screenshot-results
 **/tests/testProject
 **/artifacts
-.build-widget-versions.json

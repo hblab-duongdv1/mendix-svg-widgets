@@ -103,4 +103,28 @@ describe("SvgChartSurface", () => {
         expect(container.querySelector("path")).not.toBeNull();
         expect(container.textContent).toContain("Pie");
     });
+
+    it("renders heatmap placeholder grid", () => {
+        const surface = new SvgChartSurface({
+            width: 160,
+            height: 100,
+            kind: "heatmap",
+            title: "Heat"
+        });
+        surface.mount(container);
+        expect(container.querySelectorAll("rect").length).toBeGreaterThan(20);
+        expect(container.textContent).toContain("Heat");
+    });
+
+    it("renders force graph placeholder nodes and edges", () => {
+        const surface = new SvgChartSurface({
+            width: 200,
+            height: 120,
+            kind: "forceGraph",
+            title: "Graph"
+        });
+        surface.mount(container);
+        expect(container.querySelectorAll("circle").length).toBeGreaterThanOrEqual(5);
+        expect(container.textContent).toContain("Graph");
+    });
 });

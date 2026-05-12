@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="mendix.svgheadmapchart.SvgHeadMapChart" pluginWidget="true" needsEntityContext="false" offlineCapable="true"
+        supportedPlatform="Web"
+        xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>SVG Head Map Chart</name>
+    <description>Heat map (head map) scaffold using SVG.js. Optional list datasource; without data the default placeholder is shown.</description>
+    <studioProCategory>Charts</studioProCategory>
+    <icon>
+        iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==
+    </icon>
+    <properties>
+        <propertyGroup caption="General">
+            <property key="chartTitle" type="string" required="false" defaultValue="">
+                <caption>Title</caption>
+                <description>Optional title above the chart. When empty, a default heading is used.</description>
+            </property>
+            <property key="chartData" type="datasource" isList="true" required="false">
+                <caption>Data source</caption>
+                <description>Optional list of objects for cell values. When not configured or empty, the default placeholder is shown.</description>
+            </property>
+            <property key="seriesCategoryAttribute" type="attribute" dataSource="chartData" required="false">
+                <caption>Category attribute</caption>
+                <description>Row or column key (reserved for future data binding).</description>
+                <attributeTypes>
+                    <attributeType name="String"/>
+                    <attributeType name="Integer"/>
+                    <attributeType name="Long"/>
+                </attributeTypes>
+            </property>
+            <property key="seriesValueAttribute" type="attribute" dataSource="chartData" required="false">
+                <caption>Value attribute</caption>
+                <description>Numeric intensity per cell (reserved for future data binding).</description>
+                <attributeTypes>
+                    <attributeType name="Integer"/>
+                    <attributeType name="Long"/>
+                    <attributeType name="Decimal"/>
+                </attributeTypes>
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Dimensions">
+            <property key="widthUnit" type="enumeration" defaultValue="pixels">
+                <caption>Width unit</caption>
+                <description>Pixels: fixed width. Percentage: width as a share of the parent container.</description>
+                <enumerationValues>
+                    <enumerationValue key="percentOfParent">Percentage</enumerationValue>
+                    <enumerationValue key="pixels">Pixels</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="widthValue" type="integer" defaultValue="400">
+                <caption>Width</caption>
+                <description>Width in pixels, or percentage of parent (0–100) when Width unit is Percentage.</description>
+            </property>
+            <property key="heightUnit" type="enumeration" defaultValue="pixels">
+                <caption>Height unit</caption>
+                <description>How height is interpreted (similar to the core Area chart widget).</description>
+                <enumerationValues>
+                    <enumerationValue key="percentOfWidth">Percentage of width</enumerationValue>
+                    <enumerationValue key="pixels">Pixels</enumerationValue>
+                    <enumerationValue key="percentOfParent">Percentage of parent</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="heightValue" type="integer" defaultValue="240">
+                <caption>Height</caption>
+                <description>Height in pixels, or percentage (0–100) depending on Height unit.</description>
+            </property>
+        </propertyGroup>
+    </properties>
+</widget>

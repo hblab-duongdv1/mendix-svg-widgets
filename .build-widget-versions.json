@@ -1,0 +1,8 @@
+{
+  "@mendix-svg/svg-engine": "0.1.0",
+  "svg-bar-chart": "0.1.0",
+  "svg-force-graph-chart": "0.2.1",
+  "svg-head-map-chart": "0.1.0",
+  "svg-line-chart": "0.1.0",
+  "svg-pie-chart": "0.1.0"
+}

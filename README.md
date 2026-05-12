@@ -1,15 +1,17 @@
 # Mendix SVG chart widgets
 
-Pluggable Mendix web widgets for **line**, **bar**, and **pie** chart placeholders, backed by a shared [`@svgdotjs/svg.js`](https://svgjs.dev/) drawing layer (`@mendix-svg/svg-engine`). This repo is an npm workspaces monorepo: one shared library plus three independent widget packages.
+Pluggable Mendix web widgets for **line**, **bar**, **pie**, **head map (heatmap)**, and **force graph** scaffolds, backed by a shared [`@svgdotjs/svg.js`](https://svgjs.dev/) drawing layer (`@mendix-svg/svg-engine`). This repo is an npm workspaces monorepo: one shared library plus five independent chart widget packages.
 
 ## Repository layout
 
 | Path | Purpose |
 |------|---------|
-| `shared/svg-engine` | `SvgChartSurface`, chart kinds, `CHART_LAYOUT_DEFAULTS`, `resolveChartDimensions`, `computeChartPixelBox`, `hasChartListData` |
+| `shared/svg-engine` | `SvgChartSurface`, chart kinds (`line` / `bar` / `pie` / `heatmap` / `forceGraph`), layout helpers |
 | `widgets/charts/svg-line-chart` | SVG Line Chart widget |
 | `widgets/charts/svg-bar-chart` | SVG Bar Chart widget |
 | `widgets/charts/svg-pie-chart` | SVG Pie Chart widget |
+| `widgets/charts/svg-head-map-chart` | SVG Head Map (heatmap) widget |
+| `widgets/charts/svg-force-graph-chart` | SVG Force Graph widget |
 
 Each widget ships as its own `.mpk` after build (see below).
 
@@ -31,7 +33,7 @@ Each widget ships as its own `.mpk` after build (see below).
 1. From this repo root, install dependencies and build the widgets you need (see [Development](#development)).
 2. Copy the built `.mpk` from the widget’s `dist/<version>/` folder into your Mendix project’s `widgets/` directory (for example `mendix.SvgPieChart.mpk` from `widgets/charts/svg-pie-chart/dist/0.1.0/`).
 3. In Studio Pro, use **App → Synchronize App Directory** so the new or updated package is picked up.
-4. Add **SVG Line Chart**, **SVG Bar Chart**, or **SVG Pie Chart** from the toolbox (under Charts) and adjust properties as needed.
+4. Add **SVG Line Chart**, **SVG Bar Chart**, **SVG Pie Chart**, **SVG Head Map Chart**, or **SVG Force Graph Chart** from the toolbox (under Charts) and adjust properties as needed.
 
 You can build all three chart packages with `npm run build:charts`.
 
@@ -48,12 +50,12 @@ If you hit peer dependency issues on npm 7+, try `npm install --legacy-peer-deps
 | Command | Description |
 |---------|-------------|
 | `npm run build:engine` | Compile `shared/svg-engine` (TypeScript). |
-| `npm run build:charts` | Build line, bar, and pie widgets (each produces an `.mpk` under its `dist/` folder). |
+| `npm run build:charts` | Build all chart widgets (line, bar, pie, head map, force graph); each produces an `.mpk` under its `dist/` folder. |
 | `npm run build` | Version-aware: only runs `build` in workspaces under `shared/*` and `widgets/charts/*` whose `package.json` **version** changed since the last successful root `build` (state in `.build-widget-versions.json`, gitignored). |
 | `npm run build:all` | Build every workspace that defines a `build` script (previous default behavior). |
 | `FORCE_BUILD_ALL=1 npm run build` | Same as `build:all` for one invocation. |
 | `npm test` | Build the engine, then run unit tests in workspaces that have them. |
-| `npm run dev:line` / `dev:bar` / `dev:pie` | Start the pluggable-widgets dev server for that chart widget. |
+| `npm run dev:line` / `dev:bar` / `dev:pie` / `dev:heatmap` / `dev:forcegraph` | Start the pluggable-widgets dev server for that chart widget. |
 | `npm run lint` | Lint workspaces that expose a lint script. |
 | `npm run test:e2e` | Cypress end-to-end runner (see `cypress/`). |
 

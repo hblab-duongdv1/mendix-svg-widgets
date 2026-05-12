@@ -6,7 +6,7 @@ export type { ChartDimensionProps, MinimalListValue } from "./chartLayoutBox";
 export { CHART_LAYOUT_DEFAULTS } from "./constants";
 export { computeChartPixelBox, hasChartListData } from "./chartLayoutBox";
 
-export type ChartKind = "line" | "bar" | "pie";
+export type ChartKind = "line" | "bar" | "pie" | "heatmap" | "forceGraph";
 
 function parsePositiveSize(value: unknown): number | undefined {
     if (typeof value === "number" && Number.isFinite(value) && value > 0) {
@@ -106,15 +106,70 @@ export class SvgChartSurface {
             return;
         }
 
-        const r = Math.min(w, h) * 0.35;
-        const cx = x0 + w / 2;
-        const cy = y0 + h / 2;
-        svg.circle(r * 2)
-            .center(cx, cy)
-            .fill("#ffb020")
-            .opacity(0.35);
-        svg.path(this.arcPath(cx, cy, r, 0, 220)).fill("#ff6b35");
-        svg.circle(6).center(cx, cy).fill("#ffffff").stroke({ width: 1, color: "#c94b16" });
+        if (kind === "heatmap") {
+            const cols = 12;
+            const rows = 8;
+            const cw = w / cols;
+            const rh = h / rows;
+            const gap = 1;
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const t = (c + r * 0.7) / (cols + rows);
+                    const rCol = Math.round(30 + t * 180);
+                    const gCol = Math.round(120 + (1 - t) * 100);
+                    const bCol = Math.round(220 - t * 140);
+                    svg.rect(Math.max(cw - gap, 1), Math.max(rh - gap, 1))
+                        .move(x0 + c * cw, y0 + r * rh)
+                        .fill(`rgb(${rCol},${gCol},${bCol})`)
+                        .radius(1);
+                }
+            }
+            return;
+        }
+
+        if (kind === "forceGraph") {
+            const nodes: Array<[number, number]> = [
+                [x0 + w * 0.12, y0 + h * 0.55],
+                [x0 + w * 0.35, y0 + h * 0.22],
+                [x0 + w * 0.55, y0 + h * 0.62],
+                [x0 + w * 0.72, y0 + h * 0.28],
+                [x0 + w * 0.88, y0 + h * 0.52]
+            ];
+            const edges: Array<[number, number]> = [
+                [0, 1],
+                [1, 2],
+                [2, 3],
+                [3, 4],
+                [0, 2],
+                [1, 3]
+            ];
+            const stroke = "#8b8fa3";
+            for (const [a, b] of edges) {
+                const [ax, ay] = nodes[a]!;
+                const [bx, by] = nodes[b]!;
+                svg.line(ax, ay, bx, by).stroke({ width: 2, color: stroke, linecap: "round" });
+            }
+            const colors = ["#5c5ce6", "#2bb673", "#ff6b35", "#246bff", "#c94b16"];
+            nodes.forEach(([nx, ny], i) => {
+                svg.circle(10)
+                    .center(nx, ny)
+                    .fill(colors[i % colors.length]!)
+                    .stroke({ width: 1, color: "#ffffff" });
+            });
+            return;
+        }
+
+        if (kind === "pie") {
+            const r = Math.min(w, h) * 0.35;
+            const cx = x0 + w / 2;
+            const cy = y0 + h / 2;
+            svg.circle(r * 2)
+                .center(cx, cy)
+                .fill("#ffb020")
+                .opacity(0.35);
+            svg.path(this.arcPath(cx, cy, r, 0, 220)).fill("#ff6b35");
+            svg.circle(6).center(cx, cy).fill("#ffffff").stroke({ width: 1, color: "#c94b16" });
+        }
     }
 
     private arcPath(cx: number, cy: number, r: number, startAngle: number, endAngle: number): string {

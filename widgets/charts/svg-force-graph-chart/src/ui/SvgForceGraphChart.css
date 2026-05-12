@@ -1,0 +1,10 @@
+.charts-scaffold-widget {
+    display: block;
+    box-sizing: border-box;
+}
+
+.charts-scaffold-forcegraph svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
