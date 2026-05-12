@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Cypress chart surface demo</title>
+        <style>
+            body {
+                font-family: system-ui, sans-serif;
+                margin: 16px;
+            }
+            .row {
+                margin-bottom: 24px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Chart surface demo</h1>
+        <div class="row">
+            <div
+                id="line-root"
+                class="charts-scaffold-widget charts-scaffold-line"
+            ></div>
+        </div>
+        <div class="row">
+            <div
+                id="bar-root"
+                class="charts-scaffold-widget charts-scaffold-bar"
+            ></div>
+        </div>
+        <div class="row">
+            <div
+                id="pie-root"
+                class="charts-scaffold-widget charts-scaffold-pie"
+            ></div>
+        </div>
+        <script src="./dist/bundle.js"></script>
+    </body>
+</html>

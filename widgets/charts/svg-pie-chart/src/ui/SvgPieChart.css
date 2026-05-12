@@ -1,0 +1,11 @@
+.charts-scaffold-widget {
+    display: block;
+    width: 100%;
+    min-height: 120px;
+}
+
+.charts-scaffold-pie svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}

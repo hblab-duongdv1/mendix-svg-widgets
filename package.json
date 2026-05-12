@@ -1,0 +1,55 @@
+{
+  "name": "mendix-svg-widgets",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Mendix SVG chart widgets monorepo (svg-engine + chart widgets).",
+  "copyright": "© Mendix Technology BV 2026. All rights reserved.",
+  "author": "Ryan",
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "Apache-2.0",
+  "workspaces": [
+    "shared/*",
+    "widgets/charts/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "build:engine": "npm run build -w @mendix-svg/svg-engine",
+    "build:charts": "npm run build -w svg-line-chart && npm run build -w svg-bar-chart && npm run build -w svg-pie-chart",
+    "dev:line": "npm run dev -w svg-line-chart",
+    "dev:bar": "npm run dev -w svg-bar-chart",
+    "dev:pie": "npm run dev -w svg-pie-chart",
+    "lint": "npm run lint --workspaces --if-present",
+    "lint:fix": "npm run lint:fix --workspaces --if-present",
+    "test": "npm run build:engine && npm run test --workspaces --if-present",
+    "dev:cypress-demo": "node cypress/scripts/demo-server.mjs",
+    "test:e2e": "node cypress/scripts/run-e2e.mjs",
+    "cypress:open": "cypress open"
+  },
+  "devDependencies": {
+    "@mendix/pluggable-widgets-tools": "^11.6.0",
+    "@types/big.js": "^6.0.2",
+    "@types/jasmine": "^3.6.9",
+    "@types/jest": "^29.0.0",
+    "cypress": "^10.10.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.4.5"
+  },
+  "resolutions": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  },
+  "overrides": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "@svgdotjs/svg.js": "^3.2.5",
+    "big.js": "^7.0.1"
+  }
+}

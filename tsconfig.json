@@ -1,0 +1,21 @@
+{
+  "extends": "@mendix/pluggable-widgets-tools/configs/tsconfig.base",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "noEmit": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "types": ["jest", "node"]
+  },
+  "include": [
+    "typings/**/*.d.ts",
+    "cypress.config.ts",
+    "cypress/**/*.ts",
+    "shared/svg-engine/src/**/*.ts",
+    "widgets/charts/*/src/**/*.ts",
+    "widgets/charts/*/src/**/*.tsx",
+    "widgets/charts/*/typings/**/*.d.ts"
+  ],
+  "exclude": ["node_modules", "**/dist", "cypress/test-app"]
+}

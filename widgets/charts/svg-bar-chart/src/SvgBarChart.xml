@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="mendix.svgbarchart.SvgBarChart" pluginWidget="true" needsEntityContext="false" offlineCapable="true"
+        supportedPlatform="Web"
+        xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>SVG Bar Chart</name>
+    <description>Bar chart scaffold using shared SVG engine (SVG.js).</description>
+    <icon>
+        iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==
+    </icon>
+    <studioProCategory>Charts</studioProCategory>
+    <properties>
+        <propertyGroup caption="Chart">
+            <property key="chartTitle" type="string" required="false">
+                <caption>Title</caption>
+                <description>Optional title rendered above the placeholder chart.</description>
+            </property>
+            <property key="chartWidth" type="integer" defaultValue="400">
+                <caption>Width (px)</caption>
+                <description>SVG viewport width in pixels.</description>
+            </property>
+            <property key="chartHeight" type="integer" defaultValue="240">
+                <caption>Height (px)</caption>
+                <description>SVG viewport height in pixels.</description>
+            </property>
+        </propertyGroup>
+    </properties>
+</widget>
